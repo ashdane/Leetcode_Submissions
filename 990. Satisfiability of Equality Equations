@@ -1,9 +1,9 @@
 class Solution {
 public:
     vector<int> parent;
-    int find(int x)
+    int find(int x) //function to find the parent of x
     {
-        if(parent[x]!=x)
+        if(parent[x]!=x) //if the parent is not itself, we'll proceed to recursively find it
         {
             parent[x] = find(parent[x]);
         }
@@ -13,15 +13,15 @@ public:
         parent.resize(26);
         for(int i=0; i<26; i++)
         {
-            parent[i] = i;
+            parent[i] = i; //initially each parent is itself
         }
-        for(int i=0; i<equations.size(); i++)
+        for(int i=0; i<equations.size(); i++) //first iteration is for all the equality (==)
         {
             int first = equations[i][0] - 97;
             int second = equations[i][3] - 97;
             if(equations[i][1] == '=')
             {
-                parent[find(second)] = find(first);
+                parent[find(second)] = find(first); //if they are true; make the parent of one letter the other
             }
         }
         for(int i=0; i<equations.size(); i++)
@@ -30,12 +30,12 @@ public:
             int second = equations[i][3] - 97;
             if(equations[i][1] == '!')
             {
-                if(parent[find(second)] == find(first))
+                if(parent[find(second)] == find(first)) // we're looking for any contradictions, if they exist -> return false
                 {
                     return false;
                 }
             }
         }
-        return true;
+        return true; //if everything went without a problem, return true
     }
 };
