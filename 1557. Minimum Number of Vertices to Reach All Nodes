@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {
+        int arr[n];
+        for(int i=0; i<n; i++)
+        {
+            arr[i] = 0;
+        }
+        for(int i=0; i<edges.size(); i++) //if the vertex has a path towards it, making it non zero
+        {
+            arr[edges[i][1]]++;
+        }
+        vector<int> final;
+        for(int i=0; i<n; i++) 
+        {
+            if(!arr[i]) //all vectors with non-zero indegrees are part of the final answer
+            {
+                final.push_back(i);
+            }
+        }
+        return final;
+    }
+};
