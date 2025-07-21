@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void helper(string digits, unordered_map<int, string> mapping, vector<string>& ans,string temp, int start)
+    {
+        if(start == digits.size())
+        {
+            if(!temp.empty())
+                ans.push_back(temp);
+            return;
+        }
+        for(int j=0; j<mapping[digits[start] - '0'].size(); j++)
+        {
+            temp.push_back(mapping[digits[start] - '0'][j]);
+            helper(digits, mapping, ans, temp, start+1);
+            temp.pop_back();
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        unordered_map<int, string> mapping = {{1, "",},  {2, "abc"}, {3, "def"}, {4, "ghi"}, {5, "jkl"}, {6, "mno"}, {7, "pqrs"}, {8, "tuv"}, {9, "wxyz"}};
+        vector<string> ans;
+        string temp;
+        helper(digits, mapping, ans, temp, 0);
+        return ans;
+    }
+};
